@@ -1,17 +1,20 @@
 <?php
 
 use App\Http\Controllers\LandingController;
-use App\Livewire\Pages\Home\Index as HomePage;;
+use App\Livewire\Pages\Home\Index as HomePage;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', HomePage::class)->name('home');
-Route::get('/admin', \App\Livewire\Pages\Admin\Index::class)->name('admin.index');
-Route::get('/admin/{wl_id}', \App\Livewire\Pages\Admin\EditWL\Index::class)->name('admin.editwl.index');
+// 1) Redireciona “/” para “/admin”
+Route::redirect('/', '/admin');
 
-// Essa rota deve ser a última, pois captura qualquer {slug}.
-Route::get('/{slug}', [LandingController::class, 'show'])
-    ->name('landing.show');
+// 2) Rotas do Admin
+Route::get('/admin', \App\Livewire\Pages\Admin\Index::class)
+    ->name('admin.index');
 
+Route::get('/admin/{wl_id}', \App\Livewire\Pages\Admin\EditWL\Index::class)
+    ->name('admin.editwl.index');
+
+// 3) Rotas auxiliares (dashboard, profile, etc.)
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -21,3 +24,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+
+// 4) Rota “catch‐all” para landing pages (sempre por último)
+Route::get('/{slug}', [LandingController::class, 'show'])
+    ->name('landing.show');
