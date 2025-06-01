@@ -178,7 +178,7 @@ class Index extends Component
                 Storage::disk('public')->delete(Str::after($this->header_logo_url, '/storage/'));
             }
             $pathLogo = $this->headerLogo->store('white_labels/logos', 'public');
-            $validated['header_logo_url'] = '/storage/' . $pathLogo;
+            $validated['header_logo_url'] = url('storage/' . $pathLogo);
         } else {
             // Mantém a URL antiga, se não enviou novo arquivo
             $validated['header_logo_url'] = $this->header_logo_url;
@@ -190,7 +190,7 @@ class Index extends Component
                 Storage::disk('public')->delete(Str::after($this->home_bg_image_url, '/storage/'));
             }
             $pathBg = $this->homeBgImage->store('white_labels/backgrounds', 'public');
-            $validated['home_bg_image_url'] = '/storage/' . $pathBg;
+                $validated['home_bg_image_url'] = url('storage/' . $pathBg);
         } else {
             $validated['home_bg_image_url'] = $this->home_bg_image_url;
         }

@@ -220,7 +220,7 @@ class Index extends Component
                 );
             }
             $pathLogo = $this->headerLogo->store('white_labels/logos', 'public');
-            $validated['header_logo_url'] = '/storage/' . $pathLogo;
+                $validated['header_logo_url'] = url('storage/' . $pathLogo);
         }
         elseif ($this->whiteLabelId) {
             // Mantém a URL existente
@@ -235,7 +235,7 @@ class Index extends Component
                 );
             }
             $pathBg = $this->homeBgImage->store('white_labels/backgrounds', 'public');
-            $validated['home_bg_image_url'] = '/storage/' . $pathBg;
+            $validated['home_bg_image_url'] = url('storage/' . $pathBg);
         }
         elseif ($this->whiteLabelId) {
             $validated['home_bg_image_url'] = $this->home_bg_image_url;
