@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - main
+name: Etec Andradina - Homologação
+jobs:
+  web-deploy:
+    name: 🎉 Deploy Homologação - AlmaLuz
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ftp_host }}
+          username: ${{ secrets.ftp_user }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: meugestor.somosdevteam.com/
