@@ -51,14 +51,25 @@
                                             <span class="text-gray-400 text-xs">Sem logo</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-medium text-right">
+                                    <td class="px-6 py-4 text-sm font-medium text-right space-x-4">
+                                        <!-- Link para editar no Admin -->
                                         <a
                                             href="{{ route('admin.editwl.index', ['wl_id' => $wl->id]) }}"
                                             class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline"
                                         >
                                             Editar
                                         </a>
+
+                                        <!-- Link para ver a landing pública do WL -->
+                                        <a
+                                            href="{{ route('landing.show', ['slug' => $wl->slug]) }}"
+                                            target="_blank"
+                                            class="text-green-600 hover:text-green-800 focus:outline-none focus:underline"
+                                        >
+                                            Ver Landing
+                                        </a>
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
