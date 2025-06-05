@@ -34,10 +34,8 @@
     </main>
 </div>
 
-<!-- Alpine.js (para o funcionamento dos acordeons) -->
-<script src="//unpkg.com/alpinejs" defer></script>
-
 <!-- Scripts do Livewire -->
 @livewireScripts
+@stack('scripts')
 </body>
 </html>

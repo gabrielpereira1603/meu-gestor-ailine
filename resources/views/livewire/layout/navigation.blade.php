@@ -16,62 +16,66 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-blue-700 border-b border-gray-100 p-5">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo (mais afastado da borda pela própria padding do container) -->
+            <div class="flex-shrink-0 flex items-center">
+                <a href="#" wire:navigate class="block">
+                    <img
+                        src="https://ailine.com.br/landing/assets/images/white-logo2.png"
+                        alt="Logo"
+                        class="h-10 w-auto"
+                    >
+                </a>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+            <!-- Links de navegação (aparecem em telas SM+ e ficam alinhados à direita) -->
+            <div class="hidden sm:flex sm:items-center sm:space-x-6">
+                <a href="/dashboard"
+                    class="text-gray-100 hover:text-white hover:bg-blue-500/20 px-3 py-2 rounded-md text-sm font-bold transition">
+                    Dashboard
+                </a>
+                <a href="/produtos"
+                    class="text-gray-100 hover:text-white hover:bg-blue-500/20 px-3 py-2 rounded-md text-sm font-bold transition">
+                    Produtos
+                </a>
+                <a href="/produtos"
+                   class="text-gray-100 hover:text-white hover:bg-blue-500/20 px-3 py-2 rounded-md text-sm font-bold transition">
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+                Sobre
+                </a>
+                <a href="/produtos"
+                   class="text-gray-100 hover:text-white hover:bg-blue-500/20 px-3 py-2 rounded-md text-sm font-bold transition">
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </button>
-                    </x-slot>
-                </x-dropdown>
+                Contato
+                </a>
             </div>
 
-            <!-- Hamburger -->
+            <!-- Botão “Hamburger” para celular (aparece em telas < SM) -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button
+                    @click="open = !open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-blue-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                >
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path
+                            :class="{ 'hidden': open, 'inline-flex': !open }"
+                            class="inline-flex"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                        <path
+                            :class="{ 'hidden': !open, 'inline-flex': open }"
+                            class="hidden"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
                     </svg>
                 </button>
             </div>
@@ -79,32 +83,26 @@ new class extends Component
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div class="sm:hidden" x-show="open">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+            <a href="/dashboard"
+                class="block pl-3 pr-4 py-2 border-l-4 border-blue-300 text-base font-medium text-blue-700 bg-red-50 hover:bg-blue-100 hover:border-blue-400">
+                Dashboard
+            </a>
+            <a href="/dashboard"
+               class="block pl-3 pr-4 py-2 border-l-4 border-blue-300 text-base font-medium text-blue-700 bg-red-50 hover:bg-blue-100 hover:border-blue-400">
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
-            </div>
+                Produtos
+            </a>
+            <a href="/dashboard"
+               class="block pl-3 pr-4 py-2 border-l-4 border-blue-300 text-base font-medium text-blue-700 bg-red-50 hover:bg-blue-100 hover:border-blue-400">
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </button>
-            </div>
+                Sobre
+            </a>
+            <a href="/dashboard"
+               class="block pl-3 pr-4 py-2 border-l-4 border-blue-300 text-base font-medium text-blue-700 bg-red-50 hover:bg-blue-100 hover:border-blue-400">
+                Contato
+            </a>
         </div>
     </div>
 </nav>

@@ -5,7 +5,7 @@ use App\Livewire\Pages\Home\Index as HomePage;
 use Illuminate\Support\Facades\Route;
 
 // 1) Redireciona “/” para “/admin”
-Route::redirect('/', '/admin');
+Route::get('/', \App\Livewire\HomePage::class)->name('home');
 
 // 2) Rotas do Admin
 Route::get('/admin', \App\Livewire\Pages\Admin\Index::class)
